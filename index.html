@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="theme-color" content="#e3cdbb" />
+    <meta name="description" content="Thiệp cưới Trà My & Văn Tân — trân trọng kính mời bạn đến chung vui cùng hai gia đình." />
+    <title>Trà My & Văn Tân | Thiệp cưới</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%237c6a60'/%3E%3Cpath d='M32 47C19 38 13 31 13 23c0-6 4-10 10-10 4 0 7 2 9 6 2-4 5-6 9-6 6 0 10 4 10 10 0 8-6 15-19 24Z' fill='%23fff8ef'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css?v=11" />
+    <script src="./script.js?v=11" defer></script>
+  </head>
+  <body class="is-locked">
+    <div class="invitation-gate" id="invitationGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+      <div class="gate-card">
+        <div class="seal" aria-hidden="true">♥</div>
+        <p class="gate-kicker">Wedding invitation</p>
+        <h1 id="gateTitle">Trà My <span>&</span> Văn Tân</h1>
+        <div class="gate-ornament" aria-hidden="true"><i></i><b>❦</b><i></i></div>
+        <p class="gate-date">17 tháng 10, 2026 · 21 tháng 10, 2026</p>
+        <p class="gate-invite">Thân Mời</p>
+        <button class="pill-button gate-button" id="openInvitation" type="button">Mở thiệp</button>
+      </div>
+    </div>
+
+    <main class="invitation-page" id="mainContent">
+      <section class="hero-section">
+        <p class="section-kicker">The wedding of</p>
+        <h1>Trà My <span>&</span> Văn Tân</h1>
+        <div class="polaroid">
+          <span class="paper-tape" aria-hidden="true"></span>
+          <img src="./assets/p9.jpg" alt="Ảnh cưới Trà My và Văn Tân" />
+          <span class="wax-seal" aria-hidden="true">♡</span>
+        </div>
+      </section>
+
+      <section class="wedding-info-image-section reveal" aria-label="Thông tin lễ cưới và Thánh lễ Hôn Phối">
+        <img class="wedding-info-image" src="./assets/thanh-le-hon-phoi.png" alt="Thiệp Thánh lễ Hôn Phối của Maria Trà My và Giuse Văn Tân, lúc 04:30 thứ Bảy ngày 17 tháng 10 năm 2026 tại Thánh đường Giáo xứ Kim Lâm" />
+      </section>
+
+      <section class="ceremony-summary reveal" aria-label="Ngày tổ chức">
+        <span class="sprite-icon icon-calendar section-icon" aria-hidden="true"></span>
+        <p>Hai buổi tiệc được tổ chức tại tư gia</p>
+        <div class="date-pair">
+          <article>
+            <span>Tiệc nhà gái</span>
+            <strong>17</strong>
+            <small>Tháng 10 · 2026</small>
+          </article>
+          <i aria-hidden="true"></i>
+          <article>
+            <span>Tiệc nhà trai</span>
+            <strong>21</strong>
+            <small>Tháng 10 · 2026</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="album-section reveal" aria-labelledby="albumTitle">
+        <h2 id="albumTitle">Album Ảnh</h2>
+        <p class="album-hint"></p>
+        <div class="album-viewport" id="albumViewport" tabindex="0" aria-label="Album ảnh cưới tự chạy theo chiều ngang">
+          <div class="album-track" id="albumTrack">
+            <button type="button" data-image="0" aria-label="Xem ảnh cưới 1"><img src="./assets/p3.jpg" alt="Khoảnh khắc cưới của Trà My và Văn Tân" loading="eager" decoding="async" /></button>
+            <button type="button" data-image="1" aria-label="Xem ảnh cưới 2"><img src="./assets/p4.jpg" alt="Ảnh cưới Trà My và Văn Tân" loading="eager" decoding="async" /></button>
+            <button type="button" data-image="2" aria-label="Xem ảnh cưới 3"><img src="./assets/p5.jpg" alt="Trà My và Văn Tân bên nhau" loading="lazy" /></button>
+            <button type="button" data-image="3" aria-label="Xem ảnh cưới 4"><img src="./assets/p6.jpg" alt="Khoảnh khắc hạnh phúc của cô dâu chú rể" loading="lazy" /></button>
+            <button type="button" data-image="4" aria-label="Xem ảnh cưới 5"><img src="./assets/p7.jpg" alt="Trà My và Văn Tân trong ngày cưới" loading="lazy" /></button>
+            <button type="button" data-image="5" aria-label="Xem ảnh cưới 6"><img src="./assets/p8.jpg" alt="Khoảnh khắc dịu dàng của cô dâu chú rể" loading="lazy" /></button>
+            <button type="button" data-image="6" aria-label="Xem ảnh cưới 7"><img src="./assets/p2.jpg" alt="Kỷ niệm cưới của Trà My và Văn Tân" loading="lazy" /></button>
+            <button type="button" data-image="7" aria-label="Xem ảnh cưới 8"><img src="./assets/p9.jpg" alt="Chân dung cưới của Trà My và Văn Tân" loading="lazy" /></button>
+            <button type="button" data-image="8" aria-label="Xem ảnh cưới 9"><img src="./assets/p10.jpg" alt="Trà My và Văn Tân hạnh phúc bên nhau" loading="lazy" /></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="paper-card reception-card reveal" aria-labelledby="receptionTitle">
+        <span class="sprite-icon icon-calendar section-icon" aria-hidden="true"></span>
+        <h2 id="receptionTitle">Thông tin tiệc cưới</h2>
+        <p class="reception-label">Ngày vui đầu tiên sẽ diễn ra sau</p>
+        <div class="countdown" aria-label="Thời gian còn lại đến tiệc nhà gái">
+          <div><strong id="days">00</strong><span>Ngày</span></div>
+          <div><strong id="hours">00</strong><span>Giờ</span></div>
+          <div><strong id="minutes">00</strong><span>Phút</span></div>
+          <div><strong id="seconds">00</strong><span>Giây</span></div>
+        </div>
+        <p class="countdown-done" id="countdownDone" hidden>Ngày vui đã đến — hẹn gặp bạn tại buổi tiệc!</p>
+
+        <div class="event-schedule">
+          <article>
+            <span>Tiệc nhà gái</span>
+            <strong>10:30</strong>
+            <p>Thứ Bảy <i></i> 17 <i></i> Tháng 10</p>
+            <small>Đón khách 10:30 · Khai tiệc 11:00</small>
+          </article>
+          <article>
+            <span>Tiệc nhà trai</span>
+            <strong>10:30</strong>
+            <p>Thứ Tư <i></i> 21 <i></i> Tháng 10</p>
+            <small>Đón khách 10:30 · Khai tiệc 11:00</small>
+          </article>
+        </div>
+
+        <div class="calendar" aria-label="Lịch tháng 10 năm 2026">
+          <p>Tháng 10 / 2026</p>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+
+        <div class="calendar-links">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20Tr%C3%A0%20My%20%26%20V%C4%83n%20T%C3%A2n%20-%20Nh%C3%A0%20g%C3%A1i&dates=20261017T033000Z/20261017T060000Z&ctz=Asia%2FHo_Chi_Minh&location=3175%20%E1%BA%A4p%20Ph%C3%BA%20L%E1%BB%A3i%2C%20x%C3%A3%20Ph%C3%BA%20Trung%2C%20TP.%20%C4%90%E1%BB%93ng%20Nai" target="_blank" rel="noopener noreferrer">Thêm tiệc nhà gái vào lịch</a>
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20Tr%C3%A0%20My%20%26%20V%C4%83n%20T%C3%A2n%20-%20Nh%C3%A0%20trai&dates=20261021T033000Z/20261021T060000Z&ctz=Asia%2FHo_Chi_Minh&location=Th%C3%B4n%208%2C%20x%C3%A3%20Ea%20Ktur%2C%20t%E1%BB%89nh%20%C4%90%E1%BA%AFk%20L%E1%BA%AFk" target="_blank" rel="noopener noreferrer">Thêm tiệc nhà trai vào lịch</a>
+        </div>
+        <button class="pill-button" id="openRsvp" type="button">Xác nhận tham dự</button>
+      </section>
+
+      <section class="venues-section reveal" aria-labelledby="venueTitle">
+        <h2 id="venueTitle">Địa điểm tổ chức</h2>
+        <article class="venue-card">
+          <span class="sprite-icon icon-pin section-icon" aria-hidden="true"></span>
+          <h3>Tư gia nhà gái · VLXD TY BOY</h3>
+          <p>3175 Ấp Phú Lợi, xã Phú Trung, TP. Đồng Nai</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=3175%20%E1%BA%A4p%20Ph%C3%BA%20L%E1%BB%A3i%2C%20x%C3%A3%20Ph%C3%BA%20Trung%2C%20%C4%90%E1%BB%93ng%20Nai" target="_blank" rel="noopener noreferrer">⌁ Chỉ đường</a>
+        </article>
+        <article class="venue-card">
+          <span class="sprite-icon icon-pin section-icon" aria-hidden="true"></span>
+          <h3>Tư gia nhà trai</h3>
+          <p>Thôn 8, xã Eaktur, tỉnh Đắk Lắk</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Th%C3%B4n%208%2C%20x%C3%A3%20Ea%20Ktur%2C%20%C4%90%E1%BA%AFk%20L%E1%BA%AFk" target="_blank" rel="noopener noreferrer">⌁ Chỉ đường</a>
+        </article>
+      </section>
+
+      <section class="wishes-section reveal" aria-labelledby="wishesTitle">
+        <div class="paper-card wish-form-card">
+          <h2 id="wishesTitle">Sổ lưu bút</h2>
+          <form id="wishForm">
+            <label><span>Tên của bạn</span><input id="wishName" name="name" maxlength="40" required placeholder="Nhập tên*" /></label>
+            <label><span>Lời chúc</span><textarea id="wishMessage" name="message" maxlength="280" required placeholder="Nhập lời chúc*"></textarea></label>
+            <button class="pill-button" type="submit">Gửi lời chúc</button>
+          </form>
+          <small class="local-note"></small>
+        </div>
+        <div class="wish-list" id="wishList" aria-live="polite"></div>
+      </section>
+
+      <footer>
+        <p>Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!</p>
+        <strong>Trà My <span>&</span> Văn Tân</strong>
+        <i aria-hidden="true">♥</i>
+      </footer>
+    </main>
+
+    <audio id="backgroundMusic" preload="metadata" loop>
+      <source src="./assets/em-dong-y-i-do.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-toggle" id="musicToggle" type="button" aria-label="Phát nhạc Em Đồng Ý (I Do)" aria-pressed="false" title="Em Đồng Ý (I Do)"><span aria-hidden="true">♪</span></button>
+    <button class="auto-scroll-toggle" id="autoScrollToggle" type="button" aria-label="Bật cuộn tự động" aria-pressed="false"><span aria-hidden="true">▶</span></button>
+    <button class="back-to-top" id="backToTop" type="button" aria-label="Trở về đầu trang">↑</button>
+
+    <dialog class="modal" id="rsvpDialog">
+      <form method="dialog" class="modal-card" id="rsvpForm">
+        <button class="modal-close" value="cancel" aria-label="Đóng">×</button>
+        <p class="section-kicker">Rsvp</p>
+        <h2>Xác nhận tham dự</h2>
+        <label><span>Tên của bạn</span><input name="guestName" maxlength="50" required /></label>
+        <label><span>Bạn sẽ tham dự</span><select name="attendance" required><option value="">Chọn buổi tiệc</option><option>Tiệc nhà gái · 17/10</option><option>Tiệc nhà trai · 21/10</option><option>Cả hai buổi tiệc</option><option>Rất tiếc, tôi không thể tham dự</option></select></label>
+        <label><span>Số người tham dự</span><input name="guestCount" type="number" min="1" max="10" value="1" required /></label>
+        <button class="pill-button" value="submit" type="submit">Gửi xác nhận</button>
+        <small class="local-note">Xác nhận sẽ được gửi trực tiếp đến cô dâu và chú rể.</small>
+      </form>
+    </dialog>
+
+    <dialog class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Đóng ảnh">×</button>
+      <button class="lightbox-nav prev" aria-label="Ảnh trước">‹</button>
+      <img id="lightboxImage" alt="Ảnh cưới Trà My và Văn Tân" />
+      <button class="lightbox-nav next" aria-label="Ảnh tiếp theo">›</button>
+      <p id="lightboxCounter"></p>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <noscript><style>.invitation-gate{display:none}.is-locked{overflow:auto}.reveal{opacity:1;transform:none}</style></noscript>
+  </body>
+</html>
