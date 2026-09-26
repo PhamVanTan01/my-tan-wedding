@@ -206,8 +206,8 @@ function renderCalendar() {
 renderCalendar();
 
 const photos = [
-  "./assets/p3.jpg",
-  "./assets/p4.jpg",
+  "./assets/p3.webp",
+  "./assets/p4.webp",
   "./assets/p5.jpg",
   "./assets/p6.jpg",
   "./assets/p7.jpg",
@@ -215,6 +215,17 @@ const photos = [
   "./assets/p2.jpg",
   "./assets/p9.jpg",
   "./assets/p10.jpg",
+  "./assets/p1.jpg",
+  "./assets/optimized/p11.webp",
+  "./assets/optimized/p12.webp",
+  "./assets/optimized/p13.webp",
+  "./assets/optimized/p14.webp",
+  "./assets/optimized/p15.webp",
+  "./assets/optimized/p16.webp",
+  "./assets/optimized/p17.webp",
+  "./assets/optimized/p18.webp",
+  "./assets/optimized/p19.webp",
+  "./assets/optimized/p20.webp",
 ];
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightboxImage");
