@@ -31,7 +31,6 @@ function openInvitation() {
   document.documentElement.style.overflowY = "auto";
   document.body.style.overflowY = "auto";
   musicToggle.classList.add("is-visible");
-  playMusic();
   window.setTimeout(() => gate.remove(), 750);
   window.setTimeout(() => {
     autoScrollToggle.classList.add("is-visible");
@@ -39,7 +38,24 @@ function openInvitation() {
   }, 900);
 }
 
-openButton.addEventListener("click", openInvitation);
+const OPEN_WAIT_MAX = 6000;
+
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+async function handleOpenClick() {
+  if (openButton.disabled) return;
+  openButton.disabled = true;
+  openButton.textContent = "Đang mở thiệp...";
+  // Phát nhạc ngay trong lúc bấm để trình duyệt (nhất là iPhone) không chặn tự phát.
+  playMusic();
+  // Chờ lời chúc tải xong, nhưng không quá OPEN_WAIT_MAX để khách không phải đợi lâu.
+  await Promise.race([wishesReady, wait(OPEN_WAIT_MAX)]);
+  openInvitation();
+}
+
+openButton.addEventListener("click", handleOpenClick);
 
 function updateMusicButton() {
   const isPlaying = !backgroundMusic.paused;
@@ -86,10 +102,15 @@ function autoScrollStep(timestamp) {
     return;
   }
 
-  const elapsed = Math.min(timestamp - lastScrollFrame, 80);
+  const elapsed = Math.min(timestamp - lastScrollFrame, 50);
   lastScrollFrame = timestamp;
+  // Nếu trang bị dịch chuyển (ảnh tải xong, kéo thanh cuộn...) thì bám theo vị trí thật.
+  if (Math.abs(window.scrollY - autoScrollPosition) > 4) {
+    autoScrollPosition = window.scrollY;
+  }
   autoScrollPosition += elapsed * 0.04;
-  window.scrollTo(0, Math.floor(autoScrollPosition));
+  // Giữ số lẻ để màn hình mật độ cao cuộn từng phần pixel, không bị bước 2px/3px.
+  window.scrollTo(0, autoScrollPosition);
 
   const reachedEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
   if (reachedEnd) {
@@ -106,6 +127,9 @@ function startAutoScroll() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }
   autoScrollRunning = true;
+  // Tắt scroll-behavior: smooth trong lúc tự cuộn, nếu không mỗi khung hình sẽ tạo
+  // một hiệu ứng cuộn mượt mới chồng lên nhau gây giật.
+  document.documentElement.style.scrollBehavior = "auto";
   lastScrollFrame = 0;
   autoScrollPosition = Math.max(0, window.scrollY || window.pageYOffset || 0);
   updateAutoScrollButton();
@@ -115,6 +139,7 @@ function startAutoScroll() {
 
 function pauseAutoScroll() {
   autoScrollRunning = false;
+  document.documentElement.style.scrollBehavior = "";
   window.cancelAnimationFrame(autoScrollTimer);
   window.clearTimeout(autoScrollTimer);
   updateAutoScrollButton();
@@ -392,34 +417,49 @@ rsvpForm.addEventListener("submit", async (event) => {
 const wishForm = document.querySelector("#wishForm");
 const wishList = document.querySelector("#wishList");
 const wishSubmitButton = wishForm.querySelector('button[type="submit"]');
+const wishesCacheKey = "my-tan-shared-wishes";
+const wishesRequestTimeout = 10000;
 let sharedWishes = [];
 
-function loadSharedWishes() {
-  return new Promise((resolve, reject) => {
-    const callbackName = `weddingWishes_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    const script = document.createElement("script");
-    const timeout = window.setTimeout(() => finish(new Error("wish_request_timeout")), 10000);
+function readCachedWishes() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(wishesCacheKey));
+    return Array.isArray(cached) ? cached : [];
+  } catch {
+    return [];
+  }
+}
 
-    function finish(error, value) {
-      window.clearTimeout(timeout);
-      script.remove();
-      delete window[callbackName];
-      if (error) reject(error);
-      else resolve(value);
+function cacheWishes(wishes) {
+  try {
+    localStorage.setItem(wishesCacheKey, JSON.stringify(wishes));
+  } catch {
+    // Trang vẫn hoạt động bình thường khi trình duyệt chặn localStorage.
+  }
+}
+
+async function loadSharedWishes() {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), wishesRequestTimeout);
+
+  try {
+    const response = await fetch(`${rsvpEndpoint}?action=wishes&t=${Date.now()}`, {
+      method: "GET",
+      mode: "cors",
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+
+    if (!response.ok) throw new Error(`wish_request_failed_${response.status}`);
+    const payload = await response.json();
+    if (!payload || !payload.ok || !Array.isArray(payload.wishes)) {
+      throw new Error("invalid_wish_response");
     }
-
-    window[callbackName] = (payload) => {
-      if (!payload || !payload.ok || !Array.isArray(payload.wishes)) {
-        finish(new Error("invalid_wish_response"));
-        return;
-      }
-      finish(null, payload.wishes);
-    };
-
-    script.onerror = () => finish(new Error("wish_request_failed"));
-    script.src = `${rsvpEndpoint}?action=wishes&callback=${callbackName}&t=${Date.now()}`;
-    document.head.append(script);
-  });
+    return payload.wishes;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
 
 function renderWishes(wishes = sharedWishes) {
@@ -468,16 +508,35 @@ async function refreshWishes({ showLoading = false } = {}) {
   }
 
   try {
-    sharedWishes = await loadSharedWishes();
+    sharedWishes = await loadWishesWithRetry();
+    cacheWishes(sharedWishes);
     renderWishes();
+    return true;
   } catch (error) {
     console.warn("Không thể tải sổ lời chúc dùng chung.", error);
     wishList.removeAttribute("aria-busy");
+    if (!sharedWishes.length) sharedWishes = readCachedWishes();
+    if (sharedWishes.length) {
+      renderWishes();
+      return true;
+    }
     if (!sharedWishes.length) {
       const unavailable = document.createElement("p");
       unavailable.className = "wish-empty";
       unavailable.textContent = "Chưa tải được lời chúc. Vui lòng thử lại sau.";
       wishList.replaceChildren(unavailable);
+    }
+    return false;
+  }
+}
+
+async function loadWishesWithRetry(attempts = 3) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await loadSharedWishes();
+    } catch (error) {
+      if (attempt >= attempts) throw error;
+      await new Promise((resolve) => window.setTimeout(resolve, 1500 * attempt));
     }
   }
 }
@@ -518,7 +577,7 @@ wishForm.addEventListener("submit", async (event) => {
   }
 });
 
-refreshWishes({ showLoading: true });
+const wishesReady = refreshWishes({ showLoading: true });
 window.setInterval(() => {
   if (!document.hidden) refreshWishes();
 }, 30000);
