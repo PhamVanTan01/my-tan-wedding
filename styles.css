@@ -774,6 +774,8 @@ footer strong span {
 
 .calendar-grid .wedding-day {
   position: relative;
+  z-index: 0;
+  isolation: isolate;
   color: var(--brown-dark);
   font-weight: 600;
 }
@@ -785,6 +787,7 @@ footer strong span {
   color: #fff8ef;
   font-size: 1.75rem;
   line-height: 1;
+  filter: drop-shadow(0 2px 2px rgba(77, 61, 53, .2));
 }
 
 .calendar-links {
