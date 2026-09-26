@@ -9,7 +9,6 @@
   --shadow: 0 10px 24px rgba(74, 55, 45, 0.18);
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: "Be Vietnam Pro", system-ui, sans-serif;
-  --num: "Noto Serif Display", "Times New Roman", serif;
 }
 
 * {
@@ -28,7 +27,6 @@ body {
   font-family: var(--serif);
   font-size: 16px;
   line-height: 1.6;
-  font-variant-numeric: lining-nums;
 }
 
 body.is-locked {
@@ -1252,12 +1250,4 @@ dialog::backdrop {
 .dress-code,
 .timeline-card {
   display: none !important;
-}
-
-/* Số thẳng hàng cho ngày, đồng hồ đếm ngược và giờ tiệc */
-.date-pair article strong,
-.countdown strong,
-.event-schedule article > strong {
-  font-family: var(--num);
-  font-variant-numeric: lining-nums;
 }
